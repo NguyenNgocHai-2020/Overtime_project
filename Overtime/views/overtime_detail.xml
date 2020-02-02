@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="overtime_detail_tree_view" model="ir.ui.view">
+            <field name="name">Chi tiết làm thêm</field>
+            <field name="model">overtime.detail</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee"/>
+                    <field name="department"/>
+                    <field name="date"/>
+                    <field name="ot_rate"/>
+                    <field name="ot_time"/>
+                    <field name="reason"/>
+                    <field name="status"/>
+                    <field name="management"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="overtime_detail_form_view" model="ir.ui.view">
+            <field name="name">Nhập chi tiết làm thêm</field>
+            <field name="model">overtime.detail</field>
+            <field name="arch" type="xml">
+                <form string="Chi tiết làm thêm">
+                    <header>
+                        <button name="change_wait" type="object" string="Chờ phê duyệt" class="btn btn-warning" />
+                        <field name="status" widget="statusbar"/>
+                    </header>
+                    <group>
+                        <field name="employee"/>
+                        <field name="department"/>
+                        <field name="date"/>
+                        <field name="ot_rate"/>
+                        <field name="ot_time"/>
+                        <field name="reason"/>
+                        <field name="management" domain="[('status','=','done')]"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="overtime_detail_search_view" model="ir.ui.view">
+			<field name="name">Tìm kiếm</field>
+			<field name="model">overtime.detail</field>
+            <field name="arch" type="xml">
+				<search string="Tìm kiếm">
+					<field name="employee"/>
+					<field name="department"/>
+					<field name="date"/>
+					<group expand="1" string="Group by...">
+						<field name="employee" string="Nhân Viên" context="{'group_by' : 'employee'}"/>
+                        <field name="department" string="Phòng ban" context="{'group_by' : 'department'}"/>
+                        <field name="date" string="Ngày làm thêm" context="{'group_by' : 'date'}"/>
+
+					</group>
+                    <filter string="Trạng thái : Nháp" name="status" domain="[('status', '=', 'draft')]"/>
+                    <filter string="Trạng thái : Chờ duyệt" name="status" domain="[('status', '=', 'wait')]"/>
+                    <filter string="Trạng thái : Đã duyệt" name="status" domain="[('status', '=', 'done')]"/>
+                    <filter string="Trạng thái : Từ chối" name="status" domain="[('status', '=', 'reject')]"/>
+
+				</search>
+			</field>
+		</record>
+
+        <record id="overtime_detail_action_view" model="ir.actions.act_window">
+            <field name="name">Chi tiết làm thêm</field>
+            <field name="res_model">overtime.detail</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="overtime_detail_tree_view"/>
+            <field name="target">current</field>
+        </record>
+
+        <menuitem id="overtime_menuitem" name="Làm thêm" sequence="1"/>
+        <menuitem id="overtime_detail_menuitem" name="Chi tiết phiếu làm" parent="overtime_menuitem" action="overtime_detail_action_view" sequence="2"/>
+        <menuitem id="overtime_management_menuitem" name="Phiếu làm thêm" parent="overtime_menuitem" action="overtime_management_action_view" sequence="1"/>
+
+    </data>
+</odoo>

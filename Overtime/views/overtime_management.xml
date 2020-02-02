@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="overtime_management_tree_view" model="ir.ui.view">
+            <field name="name">Phiếu làm thêm</field>
+            <field name="model">overtime.management</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="subject"/>
+                    <field name="department"/>
+                    <field name="date"/>
+                    <field name="ot_rate"/>
+                    <field name="reason"/>
+                    <field name="ot_sum"/>
+                    <field name="detail"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="overtime_management_form_view" model="ir.ui.view">
+            <field name="name">Phiếu làm thêm</field>
+            <field name="model">overtime.management</field>
+            <field name="arch" type="xml">
+                <form string="Phiếu làm thêm">
+                    <header>
+
+                        <button name="action_approved" type="object" string="Phê duyệt" class="btn btn-info active" attrs="{'invisible':[('status','in',['done','reject'])]}"/>
+                        <button name="action_reject" type="object" string="Từ chối" class="btn btn-danger disable"/>
+                        <field name="status" widget="statusbar"/>
+                    </header>
+                    <group>
+                            <field name="subject"/>
+                            <field name="department"/>
+                            <field name="date"/>
+                            <field name="ot_rate"/>
+                            <field name="ot_sum"/>
+                            <field name="reason"/>
+                    </group>
+                    <group>
+                        <field name="detail">
+                            <tree editable="bottom">
+                                <field name="employee"/>
+                                <field name="department"/>
+                                <field name="date"/>
+                                <field name="ot_rate"/>
+                                <field name="ot_time"/>
+                                <field name="reason"/>
+                                <field name="status" />
+                            </tree>
+                        </field>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record id="overtime_management_action_view" model="ir.actions.act_window">
+            <field name="name">Phiếu làm thêm</field>
+            <field name="res_model">overtime.management</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="overtime_management_tree_view"/>
+            <field name="target">current</field>
+        </record>
+    </data>
+</odoo>

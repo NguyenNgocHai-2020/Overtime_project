@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="management_1" model="overtime.management">
+            <field name="subject">Hello_babe</field>
+            <field name="department">4</field>
+            <field name="date">2020-01-15</field>
+            <field name="reason">fix bug model OT</field>
+            <field name="ot_rate">0.2</field>
+            <field name="status">draft</field>
+        </record>
+    </data>
+</odoo>
